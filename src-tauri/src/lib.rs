@@ -75,6 +75,7 @@ pub fn run() {
             let _ = h.emit("theme-changed", serde_json::json!({ "id": saved.theme }));
 
             window::setup(h)?;
+            window::apply_size(h, saved.don_size, false);
             saved.don_pos = window::place(h, saved.don_pos).or(saved.don_pos);
             window::set_click_through(h, saved.click_through);
             window::set_don_visible(h, saved.don_visible);

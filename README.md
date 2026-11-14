@@ -19,6 +19,7 @@ Karakterler bu proje için özgün olarak çizildi. Hiçbir filmden, kişiden ve
 | Ekran kararsın ama sistem uyumasın | Menü → `Ekran kararabilir`. |
 | Don tıklamaları engellemesin | Menü → `Don'a dokunulmasın` (tıklamalar Don'un içinden geçer). |
 | İkon puf yapmasın | Menü → `Hareketli ikon` (kapalıyken ikon tamamen sabit) |
+| Don'un boyutu | Menü → `Boyut` → Küçük / Orta / Büyük |
 | Tema | Menü → `Tema` |
 | Açılışta başlat | Menü → `Açılışta başlat` |
 

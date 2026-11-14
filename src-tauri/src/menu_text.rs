@@ -4,6 +4,16 @@ pub const DISPLAY: &str = "Ekran kararabilir";
 pub const CLICK_THROUGH: &str = "Don'a dokunulmasın";
 pub const THEME: &str = "Tema";
 pub const TRAY_ANIM: &str = "Hareketli ikon";
+pub const SIZE: &str = "Boyut";
+
+pub fn size_label(s: crate::window::DonSize) -> &'static str {
+    use crate::window::DonSize::*;
+    match s {
+        Small => "Küçük",
+        Medium => "Orta",
+        Large => "Büyük",
+    }
+}
 pub const AUTOSTART: &str = "Açılışta başlat";
 pub const QUIT: &str = "Çıkış";
 pub const WIN_HINT: &str = "Don'u görev çubuğuna sabitlemek için ikonu sürükle";
@@ -30,6 +40,15 @@ mod tests {
     fn don_label_follows_visibility() {
         assert_eq!(don_label(true), "Don'u gizle");
         assert_eq!(don_label(false), "Don'u göster");
+    }
+
+    #[test]
+    fn size_labels() {
+        use crate::window::DonSize::*;
+        assert_eq!(SIZE, "Boyut");
+        assert_eq!(size_label(Small), "Küçük");
+        assert_eq!(size_label(Medium), "Orta");
+        assert_eq!(size_label(Large), "Büyük");
     }
 
     #[test]

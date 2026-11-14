@@ -1,6 +1,7 @@
 use crate::controller::State;
 use crate::settings::Settings;
 use crate::tray_frames::{self, Frames};
+use crate::window::DonSize;
 use crate::{menu_text as txt, window, AppCtl, ThemeId};
 use std::sync::{Arc, Condvar, Mutex};
 use std::time::Duration;
@@ -50,6 +51,7 @@ struct Items {
     display: CheckMenuItem<Wry>,
     click: CheckMenuItem<Wry>,
     anim: CheckMenuItem<Wry>,
+    sizes: Vec<(DonSize, CheckMenuItem<Wry>)>,
     themes: Vec<(&'static str, CheckMenuItem<Wry>)>,
     autostart: CheckMenuItem<Wry>,
 }
@@ -73,6 +75,13 @@ pub fn build(app: &AppHandle) -> tauri::Result<()> {
         display: CheckMenuItem::with_id(app, "display", txt::DISPLAY, true, false, None::<&str>)?,
         click: CheckMenuItem::with_id(app, "click", txt::CLICK_THROUGH, true, false, None::<&str>)?,
         anim: CheckMenuItem::with_id(app, "anim", txt::TRAY_ANIM, true, true, None::<&str>)?,
+        sizes: DonSize::ALL
+            .iter()
+            .map(|sz| {
+                CheckMenuItem::with_id(app, format!("size:{}", sz.id()), txt::size_label(*sz), true, false, None::<&str>)
+                    .map(|i| (*sz, i))
+            })
+            .collect::<tauri::Result<_>>()?,
         themes: tray_frames::THEMES
             .iter()
             .map(|(id, name)| {
@@ -84,11 +93,14 @@ pub fn build(app: &AppHandle) -> tauri::Result<()> {
     let theme_refs: Vec<&dyn tauri::menu::IsMenuItem<Wry>> =
         items.themes.iter().map(|(_, i)| i as &dyn tauri::menu::IsMenuItem<Wry>).collect();
     let theme_menu = Submenu::with_items(app, txt::THEME, true, &theme_refs)?;
+    let size_refs: Vec<&dyn tauri::menu::IsMenuItem<Wry>> =
+        items.sizes.iter().map(|(_, i)| i as &dyn tauri::menu::IsMenuItem<Wry>).collect();
+    let size_menu = Submenu::with_items(app, txt::SIZE, true, &size_refs)?;
     let quit = MenuItem::with_id(app, "quit", txt::QUIT, true, None::<&str>)?;
     let sep = || PredefinedMenuItem::separator(app);
     let menu = Menu::with_items(
         app,
-        &[&items.toggle, &items.don, &sep()?, &items.display, &items.click, &items.anim, &theme_menu, &items.autostart, &sep()?, &quit],
+        &[&items.toggle, &items.don, &sep()?, &items.display, &items.click, &items.anim, &size_menu, &theme_menu, &items.autostart, &sep()?, &quit],
     )?;
 
     let theme = app.state::<ThemeId>().0.lock().unwrap().clone();
@@ -213,7 +225,10 @@ fn on_menu(app: &AppHandle, e: MenuEvent) {
             return;
         }
         other => {
-            if let Some(theme) = other.strip_prefix("theme:") {
+            if let Some(sz) = DonSize::ALL.iter().find(|sz| other == format!("size:{}", sz.id())) {
+                app.state::<Mutex<Settings>>().lock().unwrap().don_size = *sz;
+                window::apply_size(app, *sz, true);
+            } else if let Some(theme) = other.strip_prefix("theme:") {
                 *app.state::<ThemeId>().0.lock().unwrap() = theme.to_string();
                 let _ = app.emit("theme-changed", serde_json::json!({ "id": theme }));
             }
@@ -235,6 +250,10 @@ pub fn sync(app: &AppHandle) {
         let _ = it.display.set_checked(s.display_may_sleep);
         let _ = it.click.set_checked(s.click_through);
         let _ = it.anim.set_checked(animated);
+        let size = app.state::<Mutex<Settings>>().lock().unwrap().don_size;
+        for (sz, item) in &it.sizes {
+            let _ = item.set_checked(*sz == size);
+        }
         for (id, item) in &it.themes {
             let _ = item.set_checked(*id == theme);
         }

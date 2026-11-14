@@ -17,6 +17,7 @@ pub struct Settings {
     pub don_pos: Option<(i32, i32)>,
     /// Tray icon puffs now and then (off = fully static icon).
     pub tray_anim: bool,
+    pub don_size: crate::window::DonSize,
 }
 
 impl Default for Settings {
@@ -29,6 +30,7 @@ impl Default for Settings {
             hint_shown: false,
             don_pos: None,
             tray_anim: true,
+            don_size: crate::window::DonSize::Medium,
         }
     }
 }
@@ -81,6 +83,7 @@ mod tests {
             hint_shown: false,
             don_pos: None,
             tray_anim: true,
+            don_size: crate::window::DonSize::Medium,
         });
     }
 
@@ -99,6 +102,14 @@ mod tests {
     }
 
     #[test]
+    fn size_is_stored_as_a_word() {
+        let s = Settings::from_json(Some(json!({ "donSize": "small" })));
+        assert_eq!(s.don_size, crate::window::DonSize::Small);
+        let v = serde_json::to_value(Settings::default()).unwrap();
+        assert_eq!(v["donSize"], json!("medium"));
+    }
+
+    #[test]
     fn unknown_theme_falls_back_to_default() {
         let s = Settings::from_json(Some(json!({ "theme": "don-deleted" })));
         assert_eq!(s.theme, "don-tombul");
@@ -106,7 +117,7 @@ mod tests {
 
     #[test]
     fn round_trips() {
-        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true, don_pos: Some((-1200, 40)), tray_anim: false };
+        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true, don_pos: Some((-1200, 40)), tray_anim: false, don_size: crate::window::DonSize::Large };
         assert_eq!(Settings::from_json(Some(serde_json::to_value(&s).unwrap())), s);
     }
 

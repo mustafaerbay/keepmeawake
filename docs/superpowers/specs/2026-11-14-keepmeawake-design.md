@@ -82,6 +82,7 @@ Arayüz yerleşimi için de üç seçenek konuşuldu: sadece tepsi, sadece serbe
   - `Ekran kararabilir` (onay kutusu, varsayılan kapalı)
   - `Don'a dokunulmasın` (onay kutusu, varsayılan kapalı)
   - `Hareketli ikon` (onay kutusu, varsayılan açık)
+  - `Boyut ▸` Küçük / Orta / Büyük (%75 / %100 / %150, varsayılan Orta). Boyut değişirken Don'un sağ alt köşesi (ayakları) yerinde kalır; taşan pencere monitörün kullanılabilir alanına çekilir. *(kullanıcı istedi)*
   - `Tema ▸` (v1'de tek öğe, ama alt menü var)
   - `Açılışta başlat` (onay kutusu)
   - `Çıkış`
