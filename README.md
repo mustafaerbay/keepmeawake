@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/mustafaerbay/keepmeawake/actions/workflows/ci.yml/badge.svg)](https://github.com/mustafaerbay/keepmeawake/actions/workflows/ci.yml)
 [![Son sürüm](https://img.shields.io/github/v/release/mustafaerbay/keepmeawake?label=s%C3%BCr%C3%BCm)](https://github.com/mustafaerbay/keepmeawake/releases/latest)
-<a href="https://buymeacoffee.com/anatolman"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%E2%98%95-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee" height="20"></a>
+<a href="https://buymeacoffee.com/mustafaerbay"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%E2%98%95-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee" height="20"></a>
 
 Bilgisayarı uyanık tutan, puro içen bir mafya babası. **Don purosunu içtiği sürece Mac'in ya da Windows PC'nin uykusu gelmez.** Puroyu söndürünce uyku düzeni normale döner.
 
@@ -83,7 +83,7 @@ GitHub Actions ([release.yml](.github/workflows/release.yml)) önce etiketin dos
 
 ## Destek
 
-Don'u sevdiysen ona bir kahve ısmarlayabilirsin: [buymeacoffee.com/anatolman](https://buymeacoffee.com/anatolman). Aynı bağlantı uygulama menüsünde de var: `☕ Don'a kahve ısmarla`.
+Don'u sevdiysen ona bir kahve ısmarlayabilirsin: [buymeacoffee.com/mustafaerbay](https://buymeacoffee.com/mustafaerbay). Aynı bağlantı uygulama menüsünde de var: `☕ Don'a kahve ısmarla`.
 
 ## Uykunun gerçekten engellendiğini doğrulama
 

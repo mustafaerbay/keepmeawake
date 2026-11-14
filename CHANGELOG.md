@@ -11,6 +11,12 @@ Yeni bir sürüm çıkarmak için:
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-15
+
+### Değişti
+
+- Buy Me a Coffee bağlantısı `buymeacoffee.com/mustafaerbay` olarak güncellendi. Değişiklik menüdeki `☕ Don'a kahve ısmarla` öğesinde, README'de, GitHub Sponsor düğmesinde ve release notlarında geçerli.
+
 ## [0.1.0] - 2026-11-15
 
 İlk sürüm. Don purosunu içtiği sürece bilgisayarın uykusu gelmez.
@@ -39,5 +45,6 @@ Yeni bir sürüm çıkarmak için:
 - Paketler imzasız. macOS'ta ilk açılışta sağ tık → **Aç** gerekir; Windows'ta SmartScreen uyarısında **Yine de çalıştır** seçilmelidir.
 - Windows sürümü CI'da derlenip test edildi, ancak gerçek bir Windows masaüstünde elle denenmedi.
 
-[Unreleased]: https://github.com/mustafaerbay/keepmeawake/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/mustafaerbay/keepmeawake/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/mustafaerbay/keepmeawake/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/mustafaerbay/keepmeawake/releases/tag/v0.1.0

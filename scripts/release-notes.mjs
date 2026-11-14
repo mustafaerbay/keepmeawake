@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 export const COFFEE_FOOTER = `
 ---
-☕ Don'u sevdiysen ona bir kahve ısmarla: https://buymeacoffee.com/anatolman
+☕ Don'u sevdiysen ona bir kahve ısmarla: https://buymeacoffee.com/mustafaerbay
 `;
 
 const strip = (v) => v.replace(/^v/, "");

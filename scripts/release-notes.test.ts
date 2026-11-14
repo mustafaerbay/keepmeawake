@@ -45,7 +45,7 @@ describe("notesFor", () => {
   });
 
   it("footer_links_buy_me_a_coffee", () => {
-    expect(COFFEE_FOOTER).toContain("https://buymeacoffee.com/anatolman");
+    expect(COFFEE_FOOTER).toContain("https://buymeacoffee.com/mustafaerbay");
   });
 });
 
