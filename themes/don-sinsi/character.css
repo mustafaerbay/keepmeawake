@@ -1,0 +1,8 @@
+/* Sinsi Don: pivots for the shared smoker animation (themes/_shared/smoker.css) */
+.don-root {
+  --shoulder: 130px 170px;
+  --neck: 100px 142px;
+  --tip: 151px 113px;
+  --rest-angle: 55deg;
+  --sleep-angle: 95deg;
+}

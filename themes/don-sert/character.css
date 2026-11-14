@@ -1,0 +1,8 @@
+/* Sert Don: pivots for the shared smoker animation (themes/_shared/smoker.css) */
+.don-root {
+  --shoulder: 150px 172px;
+  --neck: 100px 150px;
+  --tip: 159px 125px;
+  --rest-angle: 55deg;
+  --sleep-angle: 95deg;
+}

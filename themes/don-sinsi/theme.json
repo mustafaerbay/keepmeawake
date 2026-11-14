@@ -1,0 +1,18 @@
+{
+  "id": "don-sinsi",
+  "name": "Sinsi Don",
+  "order": 2,
+  "window": {
+    "width": 200,
+    "height": 260
+  },
+  "tray": {
+    "fps": 5,
+    "awakeFrames": 6,
+    "viewBox": "52 30 120 120"
+  },
+  "transitions": {
+    "lightingMs": 1200,
+    "snuffingMs": 1000
+  }
+}

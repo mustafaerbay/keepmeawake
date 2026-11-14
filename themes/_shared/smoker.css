@@ -1,0 +1,92 @@
+/* Shared "smoker" animation. Each theme's character.css sets the pivots on
+   .don-root: --shoulder, --neck, --rest-angle, --sleep-angle.
+   Only transform / opacity / fill are animated (cheap). */
+.don-root svg { width: 100%; height: 100%; overflow: visible; }
+.don-root #arm, .don-root #head, .don-root #wisps { transform-box: view-box; }
+/* smoke and z scale around their own centre */
+.don-root .wisp, .don-root .puff, .don-root #zzz { transform-box: fill-box; transform-origin: center; }
+.don-root #arm { transform-origin: var(--shoulder); transform: rotate(var(--rest-angle)); transition: transform .6s ease-in-out; }
+.don-root #head { transform-origin: var(--neck); transition: transform .6s ease-in-out; }
+.don-root .wisp, .don-root .puff { opacity: 0; }
+/* wisps live inside #arm; counter-rotate so they rise straight up at the rest pose */
+.don-root #wisps { transform-origin: var(--tip); transform: rotate(calc(-1 * var(--rest-angle))); }
+.don-root.snuffing #wisps, .don-root.asleep #wisps { transform: rotate(calc(-1 * var(--sleep-angle))); }
+.don-root #tip { transition: fill .5s; }
+
+/* ---------- awake: 8s loop ---------- */
+.don-root.awake #arm { animation: don-arm 8s ease-in-out infinite; }
+@keyframes don-arm {
+  0%, 8%    { transform: rotate(var(--rest-angle)); }
+  18%, 32%  { transform: rotate(0deg); }
+  42%, 100% { transform: rotate(var(--rest-angle)); }
+}
+.don-root.awake #tip { animation: don-tip 8s linear infinite; }
+@keyframes don-tip {
+  0%, 18%   { fill: #ff7a1a; }
+  22%, 30%  { fill: #ffe14a; }
+  36%, 100% { fill: #ff7a1a; }
+}
+/* tip wisps: only while the cigar is away from the mouth */
+.don-root.awake #wisps { animation: don-wisps 8s linear infinite; }
+@keyframes don-wisps { 0%, 6% { opacity: 1; } 10%, 40% { opacity: 0; } 46%, 100% { opacity: 1; } }
+.don-root.awake .wisp { animation: don-wisp 2.4s linear infinite; }
+.don-root.awake #smoke-2 { animation-delay: .8s; }
+.don-root.awake #smoke-3 { animation-delay: 1.6s; }
+@keyframes don-wisp {
+  0%   { opacity: 0;  transform: translate(0, 0) scale(.5); }
+  15%  { opacity: .95; }
+  50%  { transform: translate(-6px, -22px) scale(1.2); }
+  100% { opacity: 0;  transform: translate(4px, -46px) scale(2); }
+}
+/* exhale through the mouth after lowering the cigar */
+.don-root.awake .puff { animation: don-puff 8s ease-out infinite; }
+.don-root.awake #smoke-5 { animation-delay: .35s; }
+@keyframes don-puff {
+  0%, 40% { opacity: 0;  transform: translate(0, 0) scale(.4); }
+  43%     { opacity: .9; transform: translate(-4px, -2px) scale(.7); }
+  72%     { opacity: 0;  transform: translate(-30px, -56px) scale(2.6); }
+  100%    { opacity: 0; }
+}
+.don-root.awake #head { animation: don-head 8s ease-in-out infinite; }
+@keyframes don-head {
+  0%, 20%   { transform: rotate(0deg); }
+  26%, 32%  { transform: rotate(-3deg); }
+  44%, 56%  { transform: rotate(-5deg); }
+  66%, 100% { transform: rotate(0deg); }
+}
+
+/* ---------- asleep ---------- */
+.don-root.asleep #arm { transform: rotate(var(--sleep-angle)); }
+.don-root.asleep #tip { fill: #8a8a8a; }
+.don-root.asleep #lids { opacity: 1; }
+.don-root.asleep #head { animation: don-doze 4s ease-in-out infinite; }
+@keyframes don-doze { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(7deg) translateY(2px); } }
+.don-root.asleep #zzz { animation: don-zzz 3s ease-out infinite; }
+@keyframes don-zzz {
+  0%   { opacity: 0; transform: translate(0, 0) scale(.6); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(18px, -30px) scale(1.4); }
+}
+
+/* ---------- transitions ---------- */
+.don-root #flame { transform-box: fill-box; transform-origin: center bottom; }
+.don-root.lighting #wisps { opacity: 1; }
+.don-root.lighting #flame { animation: don-flame 1.2s ease-out; }
+@keyframes don-flame {
+  0%   { opacity: 0; transform: scale(.2); }
+  20%  { opacity: 1; transform: scale(1.2); }
+  60%  { opacity: 1; transform: scale(.9); }
+  100% { opacity: 0; transform: scale(.3); }
+}
+.don-root.lighting #lids { opacity: 0; }
+.don-root.snuffing #arm { animation: don-snuff 1s ease-in-out; }
+@keyframes don-snuff {
+  0%   { transform: rotate(var(--rest-angle)); }
+  50%  { transform: rotate(calc(var(--sleep-angle) + 12deg)); }
+  100% { transform: rotate(var(--sleep-angle)); }
+}
+.don-root.snuffing #wisps { opacity: 1; }
+.don-root.snuffing #smoke-1 { animation: don-wisp 1s linear; }
+
+/* hidden window: freeze everything */
+.don-root.paused, .don-root.paused * { animation-play-state: paused !important; }

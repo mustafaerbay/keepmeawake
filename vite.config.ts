@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 // @ts-expect-error type error without @types/node package
 import process from "node:process";
 const host = process.env.TAURI_DEV_HOST;
@@ -10,6 +10,8 @@ export default defineConfig(() => ({
   //
   // 1. prevent Vite from obscuring rust errors
   clearScreen: false,
+  // Theme CSS is loaded with ?raw; keep it in tests too.
+  test: { css: { include: /.+/ } },
   // 2. tauri expects a fixed port, fail if that port is not available
   server: {
     port: 1420,

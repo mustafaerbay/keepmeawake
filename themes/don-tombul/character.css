@@ -1,0 +1,8 @@
+/* Tombul Don: pivots for the shared smoker animation (themes/_shared/smoker.css) */
+.don-root {
+  --shoulder: 140px 166px;
+  --neck: 100px 150px;
+  --tip: 153px 120px;
+  --rest-angle: 55deg;
+  --sleep-angle: 95deg;
+}

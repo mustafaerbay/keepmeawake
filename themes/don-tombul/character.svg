@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <g stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="100" cy="252" rx="62" ry="6" fill="#000" opacity=".15" stroke="none"/>
+    <g id="body">
+      <path d="M36 250 Q30 168 70 150 L130 150 Q170 168 164 250 Z" fill="#2b2d3a"/>
+      <path d="M86 150 L100 196 L114 150 Z" fill="#f4f1ea"/>
+      <path d="M95 156 L105 156 L108 178 L100 190 L92 178 Z" fill="#8b1e2d"/>
+      <path d="M70 150 L100 206 L84 150 Z" fill="#1f2029"/>
+      <path d="M130 150 L100 206 L116 150 Z" fill="#1f2029"/>
+      <path d="M58 200 L58 240 M142 200 L142 240" stroke="#3b3e50" stroke-width="2"/>
+    </g>
+    <g id="head">
+      <circle cx="60" cy="114" r="9" fill="#efc29a"/>
+      <circle cx="140" cy="114" r="9" fill="#efc29a"/>
+      <circle cx="100" cy="112" r="40" fill="#f2c9a0"/>
+      <path d="M78 100 Q87 94 95 100 M105 100 Q113 94 122 100" fill="none" stroke-width="5"/>
+      <ellipse cx="87" cy="108" rx="3.5" ry="4" fill="#1a1a1a" stroke="none"/>
+      <ellipse cx="113" cy="108" rx="3.5" ry="4" fill="#1a1a1a" stroke="none"/>
+      <ellipse cx="100" cy="119" rx="8" ry="7" fill="#e3a77f"/>
+      <path d="M76 132 Q88 122 100 128 Q112 122 124 132 Q112 136 100 132 Q88 136 76 132 Z" fill="#3a2a22"/>
+      <path d="M62 82 Q60 40 100 38 Q140 40 138 82 Z" fill="#3a3a42"/>
+      <path d="M63 62 L137 62 L138 74 L62 74 Z" fill="#8b1e2d"/>
+      <ellipse cx="100" cy="82" rx="60" ry="10" fill="#3a3a42"/>
+      <path d="M86 44 Q100 54 114 44" fill="none" stroke-width="3"/>
+    <g id="lids" opacity="0"><ellipse cx="87" cy="108" rx="6" ry="5" fill="#f2c9a0" stroke="none"/><path d="M81 108 Q87 112 93 108" fill="none" stroke-width="3"/><ellipse cx="113" cy="108" rx="6" ry="5" fill="#f2c9a0" stroke="none"/><path d="M107 108 Q113 112 119 108" fill="none" stroke-width="3"/></g>
+    </g>
+    <g id="arm">
+      <path d="M138 168 Q162 160 128 136" fill="none" stroke="#1a1a1a" stroke-width="28"/>
+      <path d="M138 168 Q162 160 128 136" fill="none" stroke="#2b2d3a" stroke-width="20"/>
+      <circle cx="126" cy="134" r="9" fill="#f2c9a0"/>
+      <g id="cigar">
+        <path d="M108 131 L150 122 L152 130 L110 138 Z" fill="#7a4a2a"/>
+        <path d="M138 125 L140 133" stroke="#c9a227" stroke-width="5"/>
+        <circle id="tip" cx="152" cy="126" r="4.5" fill="#ff7a1a" stroke="#b33d00" stroke-width="2"/>
+      </g>
+        <g id="wisps" stroke="none" fill="#b9b9c6"><g id="flame" opacity="0"><path d="M153 124 Q146 112 153 102 Q160 112 153 124 Z" fill="#ffb21f" stroke="#d9480f" stroke-width="2"/></g><circle id="smoke-1" class="wisp" cx="153" cy="120" r="5"/><circle id="smoke-2" class="wisp" cx="153" cy="120" r="5"/><circle id="smoke-3" class="wisp" cx="153" cy="120" r="5"/></g>
+    </g>
+    <g id="puffs" stroke="none" fill="#b9b9c6"><circle id="smoke-4" class="puff" cx="110" cy="132" r="6"/><circle id="smoke-5" class="puff" cx="110" cy="132" r="6"/></g>
+    <text id="zzz" x="144" y="40" font-family="Georgia,serif" font-weight="700" font-size="22" fill="#5b6cff" stroke="none" opacity="0">z</text>
+  </g>
+</svg>
