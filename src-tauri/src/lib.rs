@@ -55,6 +55,7 @@ pub fn run() {
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_autostart::init(tauri_plugin_autostart::MacosLauncher::LaunchAgent, None))
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_opener::init())
         // Managed up front with defaults so the window can never ask before
         // they exist; setup() then applies the saved settings.
         .manage::<AppCtl>(Mutex::new(Controller::new(power::platform(), false, false)))

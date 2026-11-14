@@ -16,6 +16,8 @@ pub fn size_label(s: crate::window::DonSize) -> &'static str {
 }
 pub const AUTOSTART: &str = "Açılışta başlat";
 pub const QUIT: &str = "Çıkış";
+pub const COFFEE: &str = "☕ Don'a kahve ısmarla";
+pub const COFFEE_URL: &str = "https://buymeacoffee.com/anatolman";
 pub const WIN_HINT: &str = "Don'u görev çubuğuna sabitlemek için ikonu sürükle";
 
 pub fn toggle_label(awake: bool) -> &'static str {
@@ -49,6 +51,12 @@ mod tests {
         assert_eq!(size_label(Small), "Küçük");
         assert_eq!(size_label(Medium), "Orta");
         assert_eq!(size_label(Large), "Büyük");
+    }
+
+    #[test]
+    fn coffee_item() {
+        assert_eq!(COFFEE, "☕ Don'a kahve ısmarla");
+        assert_eq!(COFFEE_URL, "https://buymeacoffee.com/anatolman");
     }
 
     #[test]

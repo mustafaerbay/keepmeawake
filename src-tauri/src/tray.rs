@@ -97,10 +97,11 @@ pub fn build(app: &AppHandle) -> tauri::Result<()> {
         items.sizes.iter().map(|(_, i)| i as &dyn tauri::menu::IsMenuItem<Wry>).collect();
     let size_menu = Submenu::with_items(app, txt::SIZE, true, &size_refs)?;
     let quit = MenuItem::with_id(app, "quit", txt::QUIT, true, None::<&str>)?;
+    let coffee = MenuItem::with_id(app, "coffee", txt::COFFEE, true, None::<&str>)?;
     let sep = || PredefinedMenuItem::separator(app);
     let menu = Menu::with_items(
         app,
-        &[&items.toggle, &items.don, &sep()?, &items.display, &items.click, &items.anim, &size_menu, &theme_menu, &items.autostart, &sep()?, &quit],
+        &[&items.toggle, &items.don, &sep()?, &items.display, &items.click, &items.anim, &size_menu, &theme_menu, &items.autostart, &sep()?, &coffee, &quit],
     )?;
 
     let theme = app.state::<ThemeId>().0.lock().unwrap().clone();
@@ -219,6 +220,11 @@ fn on_menu(app: &AppHandle, e: MenuEvent) {
         "autostart" => {
             let al = app.autolaunch();
             let _ = if al.is_enabled().unwrap_or(false) { al.disable() } else { al.enable() };
+        }
+        "coffee" => {
+            use tauri_plugin_opener::OpenerExt;
+            let _ = app.opener().open_url(txt::COFFEE_URL, None::<&str>);
+            return;
         }
         "quit" => {
             app.exit(0);
