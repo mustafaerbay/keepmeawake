@@ -7,3 +7,17 @@ pub trait Power: Send {
     fn acquire(&mut self, display: bool) -> Result<(), String>;
     fn release(&mut self);
 }
+
+#[cfg(target_os = "macos")]
+mod macos;
+#[cfg(target_os = "macos")]
+pub type PlatformPower = macos::MacPower;
+
+#[cfg(windows)]
+mod windows;
+#[cfg(windows)]
+pub type PlatformPower = windows::WindowsPower;
+
+pub fn platform() -> PlatformPower {
+    PlatformPower::new()
+}

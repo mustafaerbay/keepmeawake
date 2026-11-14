@@ -1677,10 +1677,12 @@ dependencies = [
 name = "keepmeawake"
 version = "0.1.0"
 dependencies = [
+ "core-foundation",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
