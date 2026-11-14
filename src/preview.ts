@@ -7,7 +7,7 @@ for (const id of themeIds()) {
   const t = await loadTheme(id);
   const card = document.createElement("div");
   card.className = "c";
-  card.innerHTML = `<style>${t.css.replaceAll(".don-root", `[data-t="${id}"].don-root`)}</style>
+  card.innerHTML = `<style>${t.css.split(".don-root").join(`[data-t="${id}"].don-root`)}</style>
     <div class="stage" data-t="${id}">${t.svg}</div><div>${t.manifest.name}</div><button>yak/söndür</button>`;
   row.append(card);
   const s = { el: card.querySelector<HTMLElement>(".stage")!, awake: true, m: t.manifest };
