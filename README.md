@@ -4,6 +4,10 @@
 [![Son sürüm](https://img.shields.io/github/v/release/mustafaerbay/keepmeawake?label=s%C3%BCr%C3%BCm)](https://github.com/mustafaerbay/keepmeawake/releases/latest)
 <a href="https://buymeacoffee.com/mustafaerbay"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%E2%98%95-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy me a coffee" height="20"></a>
 
+<p align="center">
+  <img src="docs/images/don-smoking.gif" alt="Üç Don yan yana puro içiyor: puroyu ağzına götürüyor, ucu parlıyor, dumanı üflüyor" width="672">
+</p>
+
 Bilgisayarı uyanık tutan, puro içen bir mafya babası. **Don purosunu içtiği sürece Mac'in ya da Windows PC'nin uykusu gelmez.** Puroyu söndürünce uyku düzeni normale döner.
 
 - **Menü çubuğu / sistem tepsisi:** Minik bir Don ikonu. Puro yanıkken arada bir puf yapar, sönünce gözlerini kapatır.
@@ -11,6 +15,18 @@ Bilgisayarı uyanık tutan, puro içen bir mafya babası. **Don purosunu içtiğ
 - **Üç tema:** Tombul Don (varsayılan), Sinsi Don, Sert Don.
 
 Karakterler bu proje için özgün olarak çizildi. Hiçbir filmden, kişiden veya markadan alıntı içermez.
+
+Puroyu söndürünce Don uyuklar; bilgisayar da normal uyku düzenine döner:
+
+<p align="center">
+  <img src="docs/images/don-asleep.png" alt="Üç Don puroları sönmüş hâlde, gözleri kapalı uyukluyor" width="672">
+</p>
+
+Menü çubuğunda ve sistem tepsisinde Don böyle görünür (solda puro yanık, sağda sönük; açık ve koyu menü çubuğu):
+
+<p align="center">
+  <img src="docs/images/tray.png" alt="Üç temanın tepsi ikonları, açık ve koyu menü çubuğunda" width="374">
+</p>
 
 ## Kurulum
 
@@ -68,6 +84,7 @@ Animasyonları uygulama olmadan izlemek için `pnpm vite` çalıştırıp `http:
 1. `themes/<id>/` klasörünü oluştur: `theme.json`, `character.svg`, `character.css`.
 2. `character.svg` şu id'leri içermeli: `body`, `head`, `arm` (içinde `cigar`, `tip`, `wisps` → `flame`, `smoke-1..3`), `lids`, `puffs` → `smoke-4..5`, `zzz`. Animasyonun ortak kısmı `themes/_shared/smoker.css` dosyasında. Temanın CSS'i sadece dönme noktalarını (`--shoulder`, `--neck`, `--tip`) ve açıları verir.
 3. `pnpm tray:render` komutu tepsi karelerini ve `src-tauri/src/tray_frames.rs` dosyasını yeniden üretir.
+4. `pnpm readme:render` komutu README görsellerini (`docs/images/`) yeniden üretir.
 
 ## Sürüm çıkarma
 

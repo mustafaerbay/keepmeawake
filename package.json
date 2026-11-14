@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "test": "vitest run --passWithNoTests",
-    "tray:render": "node scripts/render-tray.mjs"
+    "tray:render": "node scripts/render-tray.mjs",
+    "readme:render": "node scripts/render-readme.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2"
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
     "@tauri-apps/cli": "^2",
+    "gifenc": "^1.0.3",
     "jsdom": "^31.0.1",
     "typescript": "~6.0.3",
     "vite": "^8.0.16",
