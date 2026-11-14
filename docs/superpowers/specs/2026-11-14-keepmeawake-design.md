@@ -27,7 +27,7 @@ Ana metafor: **Karakter purosunu içtiği sürece bilgisayar uyumaz. Puro sönü
 ## Anti-hedefler (çalışsa bile başarısızlık sayılır)
 
 - **Telif:** Karakter Godfather filmini veya herhangi bir gerçek kişiyi/aktörü taklit etmeyecek. Film adı, logo (kuklacı eli), Corleone ismi, aktör yüz benzerliği, film repliği/müziği yok. Karakter özgün: genel "1940'lar mafya babası" estetiği. Çalışma adı **"Don"**.
-- **Ağırlık:** Arka planda sürekli duran bir araç pil/CPU yememeli. Hedef: karakter penceresi açıkken bile boşta CPU < %2, pencere gizliyken animasyon tamamen durur.
+- **Ağırlık:** Arka planda sürekli duran bir araç pil/CPU yememeli. Don gizliyken iş yükü sıfır olmalı (ölçüldü: 0). Don görünürken ilk hedef %2'ydi; ölçümde 60 fps animasyon ~%12, 8 fps ~%5 çıktı. Kullanıcı 2026-11-14'te tepsinin sabit kalmasını ve Don'un 8 fps oynamasını seçti (Don görünürken ~%5, M serisi Mac, release).
 - **Yalan söyleyen durum:** İkon "yanıyor" gösterirken uyku engellenmiyorsa ya da kullanıcı söndürdükten/uygulamadan çıktıktan sonra engel sürüyorsa bu bir hata. Çıkışta ve çökmede engel serbest bırakılmalı (işletim sistemi süreç bitince zaten bırakır, buna güvenilebilir).
 
 ## Kısıtlar
@@ -69,7 +69,7 @@ Arayüz yerleşimi için de üç seçenek konuşuldu: sadece tepsi, sadece serbe
 - Uygulama açılışta **yanık** (uyanık) başlar. Uygulamayı açmanın sebebi bu. *(benim kararım)*
 
 ### Tepsi / menü çubuğu
-- İkon: temanın sağladığı kare dizisi (PNG). Yanıkken ~4–6 fps ile döngü (puro ucu parlıyor, minik duman). Sönükken tek, statik kare.
+- İkon: temanın sağladığı PNG. Yanıkken tek **sabit** kare (puro ucu yanık, minik duman), sönükken tek sabit kare. *(kullanıcı kararı: animasyonlu tepsi tek başına ~%2.7 CPU harcıyordu)*
 - macOS'ta ikon renkli (template değil), çünkü puro ucunun turuncu parıltısı karakterin parçası. Açık ve koyu menü çubuğunda okunabilir olmalı. *(benim kararım)*
 - Tauri v2 `set_icon` tek görsel alır: macOS için ~36px yüksekliğinde tek yüksek çözünürlüklü kare (18pt'de çizilir), Windows için DPI'ya göre seçilen boyut (16/20/24/32px).
 - Tepsi animasyonu yanıkken her zaman döner (karakter penceresi gizli olsa bile). Birkaç küçük PNG'yi saniyede 4–6 kez değiştirmek ucuzdur. *(benim kararım)*

@@ -3,7 +3,6 @@ use crate::settings::Settings;
 use crate::tray_frames::{self, Frames};
 use crate::{menu_text as txt, window, AppCtl, ThemeId};
 use std::sync::{Arc, Condvar, Mutex};
-use std::time::Duration;
 use tauri::image::Image;
 use tauri::menu::{CheckMenuItem, Menu, MenuEvent, MenuItem, PredefinedMenuItem, Submenu};
 use tauri::tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent};
@@ -11,7 +10,6 @@ use tauri::{AppHandle, Emitter, Manager, Wry};
 use tauri_plugin_autostart::ManagerExt;
 
 const TRAY_ID: &str = "main";
-const FPS: u64 = 5;
 
 /// Windows tray icons are 16 px at 100% scale; pick the closest rendered size.
 pub fn win_icon_size(scale: f64) -> u32 {
@@ -111,42 +109,40 @@ pub fn build(app: &AppHandle) -> tauri::Result<()> {
     Ok(())
 }
 
-/// Cycles the lit frames while awake; shows the cold frame once and sleeps
-/// on the condvar while put out (no polling).
+/// Which icon to draw, if any: `Some(true)` lit, `Some(false)` put out,
+/// `None` when the right icon is already showing. The lit icon is a single
+/// static frame: animating it cost ~2.7% CPU (user chose static).
+pub fn icon_change(awake: bool, theme: &str, shown: &Option<(String, bool)>) -> Option<bool> {
+    match shown {
+        Some((t, a)) if t == theme && *a == awake => None,
+        _ => Some(awake),
+    }
+}
+
+/// Redraws the tray icon only when state or theme changes; otherwise
+/// sleeps on the condvar (no polling, no timers).
 fn spawn_animation(app: AppHandle, tray: TrayIcon, anim: Arc<(Mutex<AnimState>, Condvar)>) {
     std::thread::spawn(move || {
         let (lock, cv) = &*anim;
-        let mut i = 0usize;
-        let mut cold_shown: Option<String> = None;
-        // Decode each theme's PNGs once; per-frame decoding cost ~3% CPU.
-        let mut cache: Option<(String, Vec<Image<'static>>, Image<'static>)> = None;
+        let mut shown: Option<(String, bool)> = None;
         loop {
-            let g = lock.lock().unwrap();
-            let (awake, theme) = (g.awake, g.theme.clone());
-            if !awake && cold_shown.as_deref() == Some(theme.as_str()) {
-                drop(cv.wait(g).unwrap());
-                continue;
-            }
-            drop(g);
-            if cache.as_ref().map(|c| c.0 != theme).unwrap_or(true) {
-                let f = platform_frames(&app, &theme);
-                let dec = |b: &'static [u8]| Image::from_bytes(b).expect("bundled tray PNG");
-                cache = Some((theme.clone(), f.awake.iter().map(|b| dec(b)).collect(), dec(f.asleep)));
-            }
-            let (_, lit, cold) = cache.as_ref().unwrap();
-            let img = if awake {
-                cold_shown = None;
-                i = (i + 1) % lit.len();
-                lit[i].clone()
-            } else {
-                cold_shown = Some(theme);
-                cold.clone()
+            let mut g = lock.lock().unwrap();
+            let lit = loop {
+                // Theme "" means sync() has not run yet.
+                if !g.theme.is_empty() {
+                    if let Some(lit) = icon_change(g.awake, &g.theme, &shown) {
+                        break lit;
+                    }
+                }
+                g = cv.wait(g).unwrap();
             };
-            let _ = tray.set_icon(Some(img));
-            if awake {
-                let g = lock.lock().unwrap();
-                drop(cv.wait_timeout(g, Duration::from_millis(1000 / FPS)).unwrap());
+            let theme = g.theme.clone();
+            drop(g);
+            let f = platform_frames(&app, &theme);
+            if let Ok(img) = Image::from_bytes(if lit { f.awake[0] } else { f.asleep }) {
+                let _ = tray.set_icon(Some(img));
             }
+            shown = Some((theme, lit));
         }
     });
 }
@@ -242,6 +238,15 @@ mod tests {
                 assert!(frames_for(id, "win", px).is_some(), "{id} win {px}");
             }
         }
+    }
+
+    #[test]
+    fn icon_redrawn_only_when_awake_or_theme_changes() {
+        let shown = Some(("don-sert".to_string(), true));
+        assert_eq!(icon_change(true, "don-sert", &shown), None, "lit icon is static");
+        assert_eq!(icon_change(false, "don-sert", &shown), Some(false));
+        assert_eq!(icon_change(true, "don-sinsi", &shown), Some(true));
+        assert_eq!(icon_change(true, "don-sert", &None), Some(true));
     }
 
     #[test]
