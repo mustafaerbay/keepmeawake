@@ -35,15 +35,23 @@ Menü çubuğunda ve sistem tepsisinde Don böyle görünür (solda puro yanık,
 - **macOS** (Apple Silicon ve Intel): `keepmeawake_X.Y.Z_universal.dmg`. Aç ve uygulamayı `Applications` klasörüne sürükle.
 - **Windows 10/11:** `keepmeawake_X.Y.Z_x64-setup.exe` ya da `.msi`.
 
-Paketler henüz imzalı değil, bu yüzden ilk açılışta işletim sistemi uyarı verir:
+### İlk açılışta güvenlik uyarısı
 
-- **macOS:** Uygulamaya sağ tıkla → **Aç** → **Aç**. Bunu bir kere yapman yeterli. Uyarı yine de çıkarsa:
+Paketler henüz Apple veya Microsoft tarafından imzalanmadı (notarize edilmedi). Uygulama güvenli, ama işletim sistemi ilk açılışta uyarı verir.
 
-  ```bash
-  xattr -dr com.apple.quarantine /Applications/keepmeawake.app
-  ```
+**macOS** — *"Apple could not verify “keepmeawake” is free of malware that may harm your Mac or compromise your privacy."* uyarısı çıkarsa:
 
-- **Windows:** SmartScreen uyarısında **Ek bilgi** → **Yine de çalıştır**.
+1. Uyarıda **Done** de.
+2. **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünün en altına in, "keepmeawake" satırındaki **Yine de Aç** düğmesine bas ve şifreni gir.
+3. Uygulamayı tekrar aç, çıkan uyarıda **Yine de Aç**'ı seç. Bunu bir kez yapman yeterli.
+
+macOS 15 (Sequoia) ve sonrasında sağ tık → **Aç** artık bu uyarıyı geçmiyor; yukarıdaki yol gerekli. Terminal'i tercih edersen tek komut yeter:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/keepmeawake.app
+```
+
+**Windows** — SmartScreen uyarısında **Ek bilgi** → **Yine de çalıştır**.
 
 Sürümler arasındaki değişiklikler [CHANGELOG.md](CHANGELOG.md) dosyasında.
 

@@ -5,6 +5,27 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+export const INSTALL_NOTE = `
+---
+### ⚠️ İlk açılışta güvenlik uyarısı
+
+Paketler henüz Apple veya Microsoft tarafından imzalanmadı. Uygulama güvenli, ama işletim sistemi ilk açılışta uyarı verir.
+
+**macOS** — *"Apple could not verify “keepmeawake” is free of malware…"* uyarısı çıkarsa:
+
+1. Uyarıda **Done** de.
+2. **Sistem Ayarları → Gizlilik ve Güvenlik** bölümünün en altına in, "keepmeawake" satırındaki **Yine de Aç** düğmesine bas ve şifreni gir.
+3. Uygulamayı tekrar aç, çıkan uyarıda **Yine de Aç**'ı seç. Bunu bir kez yapman yeterli.
+
+Ya da Terminal'de:
+
+\`\`\`bash
+xattr -dr com.apple.quarantine /Applications/keepmeawake.app
+\`\`\`
+
+**Windows** — SmartScreen uyarısında **Ek bilgi** → **Yine de çalıştır**.
+`;
+
 export const COFFEE_FOOTER = `
 ---
 ☕ Don'u sevdiysen ona bir kahve ısmarla: https://buymeacoffee.com/mustafaerbay
@@ -22,7 +43,7 @@ export function notesFor(changelog, version) {
   const rest = changelog.slice(m.index + m[0].length);
   const end = rest.search(/^## \[|^\[[^\]]+\]:\s/m);
   const body = (end === -1 ? rest : rest.slice(0, end)).trim();
-  return `${body}\n${COFFEE_FOOTER}`;
+  return `${body}\n${INSTALL_NOTE}${COFFEE_FOOTER}`;
 }
 
 /** Every version file must carry the tag's version. Returns error lines. */

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 // @ts-expect-error plain ESM script without types
-import { notesFor, checkVersions, COFFEE_FOOTER } from "./release-notes.mjs";
+import { notesFor, checkVersions, COFFEE_FOOTER, INSTALL_NOTE } from "./release-notes.mjs";
 
 const CHANGELOG = `# Değişiklik günlüğü
 
@@ -42,6 +42,18 @@ describe("notesFor", () => {
 
   it("missing_version_throws", () => {
     expect(() => notesFor(CHANGELOG, "9.9.9")).toThrow(/9\.9\.9/);
+  });
+
+  it("every_release_explains_the_unsigned_app_warnings", () => {
+    const n = notesFor(CHANGELOG, "0.1.0");
+    expect(n).toContain(INSTALL_NOTE.trim());
+    expect(INSTALL_NOTE).toContain("Apple could not verify");
+    expect(INSTALL_NOTE).toContain("Gizlilik ve Güvenlik");
+    expect(INSTALL_NOTE).toContain("xattr -dr com.apple.quarantine /Applications/keepmeawake.app");
+    expect(INSTALL_NOTE).toContain("SmartScreen");
+    // install help comes after the changes, coffee stays last
+    expect(n.indexOf("- ilk sürüm")).toBeLessThan(n.indexOf(INSTALL_NOTE.trim()));
+    expect(n.indexOf(INSTALL_NOTE.trim())).toBeLessThan(n.indexOf(COFFEE_FOOTER.trim()));
   });
 
   it("footer_links_buy_me_a_coffee", () => {

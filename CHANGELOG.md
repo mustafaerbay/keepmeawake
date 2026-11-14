@@ -11,6 +11,10 @@ Yeni bir sürüm çıkarmak için:
 
 ## [Unreleased]
 
+### Belgeler
+
+- macOS'taki "Apple could not verify…" uyarısı için kurulum talimatı düzeltildi: macOS 15 ve sonrasında **Sistem Ayarları → Gizlilik ve Güvenlik → Yine de Aç** ya da `xattr` komutu gerekiyor. Aynı not artık her release sayfasında da var.
+
 ## [0.1.1] - 2026-11-15
 
 ### Değişti
