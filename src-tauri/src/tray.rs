@@ -208,13 +208,13 @@ pub fn sync(app: &AppHandle) {
         *lock.lock().unwrap() = AnimState { awake: s.awake, theme: theme.clone() };
         cv.notify_all();
     }
-    let hint_shown = app.state::<Mutex<Settings>>().lock().unwrap().hint_shown;
+    let cur = app.state::<Mutex<Settings>>().lock().unwrap().clone();
     let next = Settings {
         display_may_sleep: s.display_may_sleep,
         click_through: s.click_through,
         don_visible: visible,
         theme,
-        hint_shown,
+        ..cur
     };
     *app.state::<Mutex<Settings>>().lock().unwrap() = next.clone();
     crate::settings::save(app, &next);

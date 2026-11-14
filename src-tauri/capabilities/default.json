@@ -8,7 +8,6 @@
   "permissions": [
     "core:default",
     "core:window:allow-start-dragging",
-    "core:window:allow-set-position",
     "store:default",
     "autostart:default",
     "notification:default"

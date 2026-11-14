@@ -13,6 +13,8 @@ pub struct Settings {
     pub don_visible: bool,
     pub theme: String,
     pub hint_shown: bool,
+    /// Don window top-left in physical pixels.
+    pub don_pos: Option<(i32, i32)>,
 }
 
 impl Default for Settings {
@@ -23,6 +25,7 @@ impl Default for Settings {
             don_visible: true,
             theme: crate::DEFAULT_THEME.into(),
             hint_shown: false,
+            don_pos: None,
         }
     }
 }
@@ -35,6 +38,14 @@ impl Settings {
             s.theme = crate::DEFAULT_THEME.into();
         }
         s
+    }
+}
+
+/// First-run hint: shown at most once, and only counted when it really showed.
+#[allow(dead_code)] // used on Windows only
+pub fn show_hint_once(s: &mut Settings, show: impl FnOnce() -> Result<(), String>) {
+    if !s.hint_shown && show().is_ok() {
+        s.hint_shown = true;
     }
 }
 
@@ -65,6 +76,7 @@ mod tests {
             don_visible: true,
             theme: "don-tombul".into(),
             hint_shown: false,
+            don_pos: None,
         });
     }
 
@@ -90,8 +102,20 @@ mod tests {
 
     #[test]
     fn round_trips() {
-        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true };
+        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true, don_pos: Some((-1200, 40)) };
         assert_eq!(Settings::from_json(Some(serde_json::to_value(&s).unwrap())), s);
+    }
+
+    #[test]
+    fn hint_marked_shown_only_when_shown() {
+        let mut s = Settings::default();
+        show_hint_once(&mut s, || Err("no notifications".into()));
+        assert!(!s.hint_shown, "a failed notification must be retried next launch");
+        show_hint_once(&mut s, || Ok(()));
+        assert!(s.hint_shown);
+        let mut called = false;
+        show_hint_once(&mut s, || { called = true; Ok(()) });
+        assert!(!called, "never shown twice");
     }
 
     #[test]

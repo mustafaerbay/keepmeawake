@@ -7,7 +7,7 @@ use windows_sys::Win32::System::Power::{
 
 enum Cmd {
     Acquire(bool, Sender<Result<(), String>>),
-    Release,
+    Release(Sender<()>),
     Shutdown,
 }
 
@@ -34,9 +34,10 @@ fn worker(rx: Receiver<Cmd>) {
                     Ok(())
                 });
             }
-            Cmd::Release => unsafe {
-                SetThreadExecutionState(ES_CONTINUOUS);
-            },
+            Cmd::Release(done) => {
+                unsafe { SetThreadExecutionState(ES_CONTINUOUS) };
+                let _ = done.send(());
+            }
             Cmd::Shutdown => {
                 unsafe { SetThreadExecutionState(ES_CONTINUOUS) };
                 break;
@@ -64,7 +65,10 @@ impl Power for WindowsPower {
     }
 
     fn release(&mut self) {
-        let _ = self.tx.send(Cmd::Release);
+        let (done, rx) = channel();
+        if self.tx.send(Cmd::Release(done)).is_ok() {
+            let _ = rx.recv();
+        }
     }
 }
 
