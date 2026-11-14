@@ -118,6 +118,8 @@ fn spawn_animation(app: AppHandle, tray: TrayIcon, anim: Arc<(Mutex<AnimState>, 
         let (lock, cv) = &*anim;
         let mut i = 0usize;
         let mut cold_shown: Option<String> = None;
+        // Decode each theme's PNGs once; per-frame decoding cost ~3% CPU.
+        let mut cache: Option<(String, Vec<Image<'static>>, Image<'static>)> = None;
         loop {
             let g = lock.lock().unwrap();
             let (awake, theme) = (g.awake, g.theme.clone());
@@ -126,19 +128,21 @@ fn spawn_animation(app: AppHandle, tray: TrayIcon, anim: Arc<(Mutex<AnimState>, 
                 continue;
             }
             drop(g);
-            let frames = platform_frames(&app, &theme);
-            let bytes = if awake {
+            if cache.as_ref().map(|c| c.0 != theme).unwrap_or(true) {
+                let f = platform_frames(&app, &theme);
+                let dec = |b: &'static [u8]| Image::from_bytes(b).expect("bundled tray PNG");
+                cache = Some((theme.clone(), f.awake.iter().map(|b| dec(b)).collect(), dec(f.asleep)));
+            }
+            let (_, lit, cold) = cache.as_ref().unwrap();
+            let img = if awake {
                 cold_shown = None;
-                i = (i + 1) % frames.awake.len();
-                frames.awake[i]
+                i = (i + 1) % lit.len();
+                lit[i].clone()
             } else {
                 cold_shown = Some(theme);
-                frames.asleep
+                cold.clone()
             };
-            if let Ok(img) = Image::from_bytes(bytes) {
-                let _ = tray.set_icon(Some(img));
-                let _ = tray.set_icon_as_template(false);
-            }
+            let _ = tray.set_icon(Some(img));
             if awake {
                 let g = lock.lock().unwrap();
                 drop(cv.wait_timeout(g, Duration::from_millis(1000 / FPS)).unwrap());
