@@ -69,7 +69,8 @@ Arayüz yerleşimi için de üç seçenek konuşuldu: sadece tepsi, sadece serbe
 - Uygulama açılışta **yanık** (uyanık) başlar. Uygulamayı açmanın sebebi bu. *(benim kararım)*
 
 ### Tepsi / menü çubuğu
-- İkon: temanın sağladığı PNG. Yanıkken tek **sabit** kare (puro ucu yanık, minik duman), sönükken tek sabit kare. *(kullanıcı kararı: animasyonlu tepsi tek başına ~%2.7 CPU harcıyordu)*
+- İkon: temanın sağladığı PNG kareleri. Yanıkken çoğunlukla sabit kare; `Hareketli ikon` açıkken 8 saniyede bir ~1 saniyelik puf (puro ucu parlar, duman yükselir). Sönükken tek sabit kare. *(kullanıcı kararı: sürekli animasyon ~%2.7 CPU harcıyordu, ara ara puf ~%0.4)*
+- `Hareketli ikon` menüde onay kutusu, varsayılan açık; kapatınca ikon tamamen sabit.
 - macOS'ta ikon renkli (template değil), çünkü puro ucunun turuncu parıltısı karakterin parçası. Açık ve koyu menü çubuğunda okunabilir olmalı. *(benim kararım)*
 - Tauri v2 `set_icon` tek görsel alır: macOS için ~36px yüksekliğinde tek yüksek çözünürlüklü kare (18pt'de çizilir), Windows için DPI'ya göre seçilen boyut (16/20/24/32px).
 - Tepsi animasyonu yanıkken her zaman döner (karakter penceresi gizli olsa bile). Birkaç küçük PNG'yi saniyede 4–6 kez değiştirmek ucuzdur. *(benim kararım)*
@@ -80,6 +81,7 @@ Arayüz yerleşimi için de üç seçenek konuşuldu: sadece tepsi, sadece serbe
   - `Don'u göster` / `Don'u gizle` (karakter penceresi)
   - `Ekran kararabilir` (onay kutusu, varsayılan kapalı)
   - `Don'a dokunulmasın` (onay kutusu, varsayılan kapalı)
+  - `Hareketli ikon` (onay kutusu, varsayılan açık)
   - `Tema ▸` (v1'de tek öğe, ama alt menü var)
   - `Açılışta başlat` (onay kutusu)
   - `Çıkış`

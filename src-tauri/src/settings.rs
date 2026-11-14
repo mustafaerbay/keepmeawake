@@ -15,6 +15,8 @@ pub struct Settings {
     pub hint_shown: bool,
     /// Don window top-left in physical pixels.
     pub don_pos: Option<(i32, i32)>,
+    /// Tray icon puffs now and then (off = fully static icon).
+    pub tray_anim: bool,
 }
 
 impl Default for Settings {
@@ -26,6 +28,7 @@ impl Default for Settings {
             theme: crate::DEFAULT_THEME.into(),
             hint_shown: false,
             don_pos: None,
+            tray_anim: true,
         }
     }
 }
@@ -77,6 +80,7 @@ mod tests {
             theme: "don-tombul".into(),
             hint_shown: false,
             don_pos: None,
+            tray_anim: true,
         });
     }
 
@@ -102,7 +106,7 @@ mod tests {
 
     #[test]
     fn round_trips() {
-        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true, don_pos: Some((-1200, 40)) };
+        let s = Settings { display_may_sleep: true, click_through: true, don_visible: false, theme: "don-sinsi".into(), hint_shown: true, don_pos: Some((-1200, 40)), tray_anim: false };
         assert_eq!(Settings::from_json(Some(serde_json::to_value(&s).unwrap())), s);
     }
 

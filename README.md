@@ -2,7 +2,7 @@
 
 Bilgisayarı uyanık tutan, puro içen bir mafya babası. **Don purosunu içtiği sürece Mac'in ya da Windows PC'nin uykusu gelmez.** Puroyu söndürünce uyku düzeni normale döner.
 
-- **Menü çubuğu / sistem tepsisi:** Puro yanıkken ucu kor olan, sönünce gözleri kapanan minik bir Don ikonu.
+- **Menü çubuğu / sistem tepsisi:** Minik bir Don ikonu. Puro yanıkken arada bir puf yapar, sönünce gözlerini kapatır.
 - **Ekranda Don:** Şeffaf, hep üstte duran, sürüklenebilir bir karakter. Puroyu ağzına götürür, nefes çeker, dumanı üfler. Söndürünce uyuklar.
 - **Üç tema:** Tombul Don (varsayılan), Sinsi Don, Sert Don.
 
@@ -18,6 +18,7 @@ Karakterler bu proje için özgün olarak çizildi. Hiçbir filmden, kişiden ve
 | Don'u gizle | Menü → `Don'u gizle` (gizliyken animasyon tamamen durur). |
 | Ekran kararsın ama sistem uyumasın | Menü → `Ekran kararabilir`. |
 | Don tıklamaları engellemesin | Menü → `Don'a dokunulmasın` (tıklamalar Don'un içinden geçer). |
+| İkon puf yapmasın | Menü → `Hareketli ikon` (kapalıyken ikon tamamen sabit) |
 | Tema | Menü → `Tema` |
 | Açılışta başlat | Menü → `Açılışta başlat` |
 
