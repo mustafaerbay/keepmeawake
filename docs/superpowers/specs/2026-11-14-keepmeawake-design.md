@@ -23,7 +23,6 @@ Ana metafor: **Karakter purosunu içtiği sürece bilgisayar uyumaz. Puro sönü
 - Zamanlayıcı ("2 saat uyanık tut"). İleride eklenebilir. *(benim kararım)*
 - Kod imzalama, notarization, otomatik güncelleme, mağaza dağıtımı. v1 yerel derleme/imzasız paket. *(benim kararım)*
 - Linux desteği.
-- İkinci bir tema. v1 tek temayla çıkar, sistem ikinciye hazır olur.
 
 ## Anti-hedefler (çalışsa bile başarısızlık sayılır)
 
@@ -54,6 +53,7 @@ Arayüz yerleşimi için de üç seçenek konuşuldu: sadece tepsi, sadece serbe
 - Yerleşim: C (minik tepsi ikonu her zaman + isteğe bağlı büyük karakter).
 - Teknoloji: Tauri.
 - Çizim tarzı: vektör (SVG).
+- v1 üç Don temasıyla çıkar: Tombul (varsayılan), Sinsi, Sert. `Tema ▸` menüsünden seçilir. *(kullanıcı taslak aşamasında istedi)*
 
 ## Davranış
 
